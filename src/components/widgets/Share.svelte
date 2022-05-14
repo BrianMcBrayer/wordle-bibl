@@ -2,14 +2,14 @@
     import type Toaster from "./Toaster.svelte";
 
     import {mode} from "../../stores";
-    import {failed, modeData} from "../../utils";
+    import {failed, modeData, numberIsZero} from "../../utils";
     import {getContext} from "svelte";
     import type {GameState} from "../../types";
 
     export let state: GameState;
     const toaster = getContext<Toaster>("toaster");
 
-    $: stats = `Daily Bībl #${state.wordNumber} ${
+    $: stats = `Daily Bībl #${state.wordNumber + numberIsZero} ${
         failed(state) ? "X" : state.guesses
     }/${state.board.words.length}\n\n    ${state.board.state
         .slice(0, state.guesses)
@@ -21,7 +21,7 @@
         try {
             if(`canShare` in navigator) {
                 const sharedData = {
-                    title: `Daily Bībl #${state.wordNumber}`,
+                    title: `Daily Bībl #${state.wordNumber + numberIsZero}`,
                     text: stats
                 };
                 if(navigator.canShare(sharedData)) {
