@@ -2,14 +2,14 @@
     import type Toaster from "./Toaster.svelte";
 
     import {mode} from "../../stores";
-    import {failed, modeData, numberIsZero} from "../../utils";
+    import {failed, modeData} from "../../utils";
     import {getContext} from "svelte";
     import type {GameState} from "../../types";
 
     export let state: GameState;
     const toaster = getContext<Toaster>("toaster");
 
-    $: stats = `Daily Bībl #${state.wordNumber + numberIsZero} ${
+    $: stats = `Daily Bībl #${state.wordNumber} ${
         failed(state) ? "X" : state.guesses
     }/${state.board.words.length}\n\n    ${state.board.state
         .slice(0, state.guesses)
@@ -18,29 +18,23 @@
 </script>
 
 <div on:click={() => {
-        try {
-            if(`canShare` in navigator) {
-                const sharedData = {
-                    title: `Daily Bībl #${state.wordNumber + numberIsZero}`,
-                    text: stats
-                };
-                if(navigator.canShare(sharedData)) {
-                   navigator.share(sharedData)
-                    .catch(() => {
-                        navigator.clipboard.writeText(stats)
-                            .then(() => {
-                                toaster.pop("We are sorry but this content could not be shared. It has been copied to the clipboard instead.");
-                            });
+        if(`canShare` in navigator) {
+            const sharedData = {
+                title: `Daily Bībl #${state.wordNumber}`,
+                text: stats
+            };
+            if(navigator.canShare(sharedData)) {
+               navigator.share(sharedData)
+                .catch(() => {
+                    navigator.clipboard.writeText(stats).then(() => {
+                        toaster.pop("We are sorry but this content could not be shared. It has been copied to the clipboard instead");
                     });
-                }
-            } else {
-                navigator.clipboard.writeText(stats).then(() => {
-                    toaster.pop("Copied to clipboard");
                 });
             }
-        }
-        catch {
-            toaster.pop("We are sorry but this content could neither be shared nor copied to the clipboard.")
+        } else {
+            navigator.clipboard.writeText(stats).then(() => {
+                toaster.pop("Copied to clipboard");
+            });
         }
 	}}
 >
