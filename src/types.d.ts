@@ -22,6 +22,23 @@ type GameBoard = {
 	state: LetterState[][],
 };
 
+type VerseReference = {
+	book: string;
+	chapter: number;
+	verse: number;
+};
+
+type Verse = {
+	reference: VerseReference;
+	text: string;
+}
+
+type WordVerseMatches = {
+	word: string;
+	selectedVerses: Verse[];
+	allVerseReferences: VerseReference[];
+}
+
 type SettingType = "switch" | "dropdown" | "custom";
 
 type DictionaryEntry = {

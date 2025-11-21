@@ -2,26 +2,48 @@
 	import type Toaster from "./Toaster.svelte";
 
 	import { mode } from "../../stores";
-	import { failed, modeData, GameState } from "../../utils";
+	import { failed, modeData } from "../../utils";
 	import { getContext } from "svelte";
+	import type { GameState } from "../../types";
 
 	export let state: GameState;
 	const toaster = getContext<Toaster>("toaster");
 
-	function copyStats() {
-		navigator.clipboard.writeText(
-			`${modeData.modes[$mode].name} Wordle+ #${state.wordNumber} ${
-				failed(state) ? "X" : state.guesses
-			}/${state.board.words.length}\n\n    ${state.board.state
-				.slice(0, state.guesses)
-				.map((r) => r.join(""))
-				.join("\n    ")}\nmikhad.github.io/wordle`
-		);
-		toaster.pop("Copied");
-	}
+	$: stats = `Daily Bībl #${state.wordNumber} ${
+		failed(state) ? "X" : state.guesses
+	}/${state.board.words.length}\n\n    ${state.board.state
+		.slice(0, state.guesses)
+		.map((r) => r.join(""))
+		.join("\n    ")}\n\nhttps://biblgame.com`;
 </script>
 
-<div on:click={copyStats} on:keydown={copyStats}>
+<div
+	on:click={() => {
+		if ("canShare" in navigator) {
+			const sharedData = {
+				title: `Daily Bībl #${state.wordNumber}`,
+				text: stats,
+			};
+			// @ts-ignore - canShare is not yet in the TS lib definitions everywhere
+			if (navigator.canShare(sharedData)) {
+				// @ts-ignore
+				navigator
+					.share(sharedData)
+					.catch(() => {
+						navigator.clipboard.writeText(stats).then(() => {
+							toaster.pop(
+								"We are sorry but this content could not be shared. It has been copied to the clipboard instead"
+							);
+						});
+					});
+			}
+		} else {
+			navigator.clipboard.writeText(stats).then(() => {
+				toaster.pop("Copied to clipboard");
+			});
+		}
+	}}
+>
 	share
 	<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
 		<path

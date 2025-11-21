@@ -5,10 +5,12 @@ import wordList from "./words_5";
 export const ROWS = 6;
 export const COLS = 5;
 
+const completeWordSet = new Set<string>([...wordList.words, ...wordList.valid]);
+
 export const words = {
 	...wordList,
 	contains: (word: string) => {
-		return wordList.words.includes(word) || wordList.valid.includes(word);
+		return completeWordSet.has(word);
 	},
 };
 

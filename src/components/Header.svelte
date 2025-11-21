@@ -36,18 +36,8 @@
 			</GameIcon>
 		{/if}
 	</div>
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<h1
-		on:click|self={() => {
-			$mode = ($mode + 1) % modeData.modes.length;
-			toaster.pop(modeData.modes[$mode].name);
-		}}
-		on:contextmenu|preventDefault|self={() => {
-			$mode = ($mode - 1 + modeData.modes.length) % modeData.modes.length;
-			toaster.pop(modeData.modes[$mode].name);
-		}}
-	>
-		wordle+
+	<h1>
+		bībl
 	</h1>
 	<div class="icons">
 		{#if showStats}
@@ -71,7 +61,7 @@
 			on:click={() => dispatch("closeTutPopUp")}
 			on:keydown={() => dispatch("closeTutPopUp")}
 		>
-			Swipe board or tap WORDLE+ to change game mode
+			Swipe the board left or right to change game mode
 			<span class="ok">OK</span>
 		</div>
 	{/if}

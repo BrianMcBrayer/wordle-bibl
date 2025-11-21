@@ -1,6 +1,6 @@
 {
-  "name": "wordle+",
-  "description": "A remake of the popular game Wordle with additional modes and features.",
+  "name": "bibl",
+  "description": "A Bible-themed word game inspired by Wordle, with additional modes and Scriptural features.",
   "version": "1.5.2",
   "type": "module",
   "private": "true",

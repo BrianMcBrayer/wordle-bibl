@@ -1,12 +1,20 @@
-![Wordle+](https://raw.githubusercontent.com/MikhaD/wordle/main/public/img/og_1200x630.png)
+![Bībl](public/img/og_1200x630.png)
 <div align="center">
-  <a href="https://mikhad.github.io/wordle/" ><img src="https://github.com/MikhaD/wordle/workflows/Publish/badge.svg?branch=main" alt="Publish workflow"/></a>
-  <img src="https://img.shields.io/github/package-json/v/MikhaD/wordle" alt="GitHub package.json version" />
+  <a href="https://biblgame.com" ><img src="https://github.com/MikhaD/wordle/workflows/Publish/badge.svg?branch=main" alt="Upstream Publish workflow"/></a>
+  <img src="https://img.shields.io/github/package-json/v/MikhaD/wordle" alt="Upstream package.json version" />
 </div>
 
 ---
-A recreation of the popular game [Wordle](https://www.nytimes.com/games/wordle/) by Josh Wardle (now purchased by the New York Times), with additional modes and features.
-Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
+Bībl is a Bible-themed word guessing game inspired by the popular game
+[Wordle](https://www.nytimes.com/games/wordle/) by Josh Wardle.
+It uses a Bible-based word list and shows Scripture passages related to each answer.
+
+Bībl was created and is maintained by
+[Brian McBrayer](https://github.com/BrianMcBrayer/wordle-bibl).
+It is built on top of **Wordle+** by [MikhaD](https://github.com/MikhaD/wordle), which provides
+the core game and additional modes/features.
+
+The live Bībl game is hosted at [https://biblgame.com](https://biblgame.com).
 
 # Additional Features
 - Words are chosen from the list of words at random instead of in sequence, and the solution is not stored in localStorage, making it harder to cheat. The seed for the random number is created from the date, ensuring that everyone gets the same random number, so people can still compare answers.
@@ -25,7 +33,7 @@ Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 - Give Up button.
 
 ## Additional modes
-The game mode can be changed by clicking WORDLE+ at the top of the screen or swiping the board in either direction.
+The game mode can be changed by swiping the board in either direction.
 
 **Hourly mode**: A new word every hour.
 
